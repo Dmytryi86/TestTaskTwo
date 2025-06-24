@@ -1,0 +1,37 @@
+# Project: TestTask2
+# Makefile created by Red Panda C++ 3.3.3147
+
+CXX      = "g++.exe"
+CC       = "gcc.exe"
+WINDRES  = "windres.exe"
+RM       = del /q /f
+CD       = cd /d
+LIBS     = "-Wl,--stack,12582912"
+INCS     = 
+CXXINCS  = 
+CXXFLAGS = $(CXXINCS) "-g3" "-pipe" "-Wall" "-D_DEBUG"
+CFLAGS   = $(INCS) "-g3" "-pipe" "-Wall" "-D_DEBUG"
+WINDRESFLAGS = 
+RES      = TestTask2_private.res
+OBJ      = TestTask2.o $(RES)
+BIN      = TestTask2.exe
+LINKOBJ  = "TestTask2.o" "TestTask2_private.res"
+CLEANOBJ = "TestTask2.o" "TestTask2_private.res" "TestTask2.exe"
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	-$(RM) $(CLEANOBJ) >NUL 2>&1
+
+TestTask2.exe: $(OBJ)
+
+	$(CXX) $(LINKOBJ) -o "TestTask2.exe" $(LIBS)
+
+TestTask2.o: TestTask2.cpp
+	$(CXX) -c "TestTask2.cpp" -o "TestTask2.o" $(CXXFLAGS)  -finput-charset=UTF-8 -fexec-charset=windows-1251
+
+TestTask2_private.res: TestTask2_private.rc 
+	$(WINDRES) -i "TestTask2_private.rc" --input-format=rc -o "TestTask2_private.res" -O coff $(WINDRESFLAGS) 
+
